@@ -9,6 +9,7 @@
   <button onclick="showNotifikasiSederhana()">Notifikasi Sederhana dengan Title dan Body</button>
   <button onclick="showNotifikasiIkon()">Notifikasi dengan Gambar Ikon</button>
   <button onclick="showNotifikasiBadge()">Notifikasi dengan Gambar Badge</button>
+  <button onclick="showNotifikasiActions()">Notifikasi dengan Action</button>
   <script type="text/javascript">
     // Periksa service worker
     if (!('serviceWorker' in navigator)) {
@@ -85,6 +86,33 @@
         const options = {
             'body': 'Ini adalah konten notifikasi dengan gambar badge.',
             'badge': '/img/logo.png'
+        };
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(title, options);
+            });
+        } else {
+            console.error('Fitur notifikasi tidak diijinkan.');
+        }
+    }
+
+    function showNotifikasiActions() {
+        const title = 'Notifikasi dengan Actions';
+        const options = {
+            'body': 'Ini adalah konten notifikasi dengan pilihan actions.',
+            'actions': [
+                {
+                    'action': 'yes-action',
+                    'title': 'Ya',
+                    'icon': '/img/yes.png'
+                },
+                {
+                    'action': 'no-action',
+                    'title': 'Tidak',
+                    'icon': '/img/no.png'
+                }
+            ],
+            requireInteraction: true,
         };
         if (Notification.permission === 'granted') {
             navigator.serviceWorker.ready.then(function(registration) {
