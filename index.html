@@ -11,6 +11,7 @@
   <button onclick="showNotifikasiBadge()">Notifikasi dengan Gambar Badge</button>
   <button onclick="showNotifikasiActions()">Notifikasi dengan Action</button>
   <button onclick="showNotifikasiTag()">Notifikasi dengan Tag</button>
+  <button onclick="showNotifikasiRenotify()">Notifikasi dengan Renotify</button>
   <script type="text/javascript">
     // Periksa service worker
     if (!('serviceWorker' in navigator)) {
@@ -155,6 +156,21 @@
         console.error('Fitur notifikasi tidak diijinkan.');
         }
 
+    }
+    function showNotifikasiRenotify() {
+        const title = 'Notifikasi dengan Renotify';
+        const options = {
+            body: 'Renotify',
+            tag: 'message-group-1',
+            renotify: true,
+        };
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(title, options);
+            });
+        } else {
+            console.error('Fitur notifikasi tidak diijinkan.');
+        }
     }
   </script>
 </body>
