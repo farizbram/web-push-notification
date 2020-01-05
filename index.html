@@ -8,6 +8,7 @@
   <h1>Notification API</h1>
   <button onclick="showNotifikasiSederhana()">Notifikasi Sederhana dengan Title dan Body</button>
   <button onclick="showNotifikasiIkon()">Notifikasi dengan Gambar Ikon</button>
+  <button onclick="showNotifikasiBadge()">Notifikasi dengan Gambar Badge</button>
   <script type="text/javascript">
     // Periksa service worker
     if (!('serviceWorker' in navigator)) {
@@ -69,6 +70,21 @@
             'body': 'Ini adalah konten notifikasi dengan gambar ikon.',
             'icon': '/img/icon.png',
             requireInteraction: true,
+        };
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(title, options);
+            });
+        } else {
+            console.error('Fitur notifikasi tidak diijinkan.');
+        }
+    }
+
+    function showNotifikasiBadge() {
+        const title = 'Notifikasi dengan Badge';
+        const options = {
+            'body': 'Ini adalah konten notifikasi dengan gambar badge.',
+            'badge': '/img/logo.png'
         };
         if (Notification.permission === 'granted') {
             navigator.serviceWorker.ready.then(function(registration) {
