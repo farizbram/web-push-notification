@@ -12,6 +12,8 @@
   <button onclick="showNotifikasiActions()">Notifikasi dengan Action</button>
   <button onclick="showNotifikasiTag()">Notifikasi dengan Tag</button>
   <button onclick="showNotifikasiRenotify()">Notifikasi dengan Renotify</button>
+  <button onclick="showNotifikasiSilent()">Notifikasi dengan Silent</button>
+  <button onclick="showNotifikasiGambar()">Notifikasi dengan Gambar</button>
   <script type="text/javascript">
     // Periksa service worker
     if (!('serviceWorker' in navigator)) {
@@ -163,6 +165,35 @@
             body: 'Renotify',
             tag: 'message-group-1',
             renotify: true,
+        };
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(title, options);
+            });
+        } else {
+            console.error('Fitur notifikasi tidak diijinkan.');
+        }
+    }
+
+    function showNotifikasiSilent() {
+        const title = 'Notifikasi senyap';
+        const options = {
+            silent: true
+        };
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification(title, options);
+            });
+        } else {
+            console.error('Fitur notifikasi tidak diijinkan.');
+        }
+    }
+
+    function showNotifikasiGambar() {
+        const title = 'Notifikasi dengan Gambar';
+        const options = {
+            'body': 'Ini adalah konten notifikasi dengan gambar latar.',
+            'image': '/img/image.png'
         };
         if (Notification.permission === 'granted') {
             navigator.serviceWorker.ready.then(function(registration) {
